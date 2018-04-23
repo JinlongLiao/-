@@ -1,0 +1,5 @@
+com\silu\repository\UserRepository.class
+com\silu\controller\UtilsServices.class
+com\silu\ProviderUserApplication.class
+com\silu\controller\UserController.class
+com\silu\entity\User.class
