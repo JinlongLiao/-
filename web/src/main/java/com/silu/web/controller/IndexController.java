@@ -3,9 +3,7 @@ package com.silu.web.controller;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URLDecoder;
-import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -16,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.silu.entity.Navigation;
 import com.silu.web.index.IndexEntity.IndexEntity;
 
 @Controller
@@ -32,7 +28,7 @@ public class IndexController {
 		logger.debug("HelloWorld");
 		String result = "";
 		// 获取远端 数据
-		result = temp.getForObject("http://127.0.0.1:8000/index/view", String.class);
+		result = temp.getForObject("http://provider-user/index/view", String.class);
 		// 转换 为Java 对象
 		IndexEntity entity = JSONObject.parseObject(result, IndexEntity.class);
 		// 写入 Model
@@ -47,7 +43,7 @@ public class IndexController {
 		logger.debug("HelloWorld");
 		String result = "";
 		// 获取远端 数据
-		result = temp.getForObject("http://127.0.0.1:8000/getAllNavigations", String.class);
+		result = temp.getForObject("http://provider-user/getAllNavigations", String.class);
 		// 写出去
 		logger.debug(result);
 		res.setCharacterEncoding("utf-8");
