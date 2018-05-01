@@ -32,6 +32,9 @@ public class Navigation {
 	private String url;
 	@Column
 	private String desc;
+	// 20180430 新增 url target default ——NEW
+	@Column
+	private String target;
 
 	public int getId() {
 		return id;
@@ -79,6 +82,14 @@ public class Navigation {
 
 	public void setDesc(String desc) throws UnsupportedEncodingException {
 		this.desc = URLEncoder.encode(desc, "utf-8");
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
 	}
 
 }
