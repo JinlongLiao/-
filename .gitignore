@@ -22,3 +22,7 @@
 hs_err_pid*
 /.metadata/
 /.recommenders/
+
+/dao/target/
+/sever/target/
+/web/target/
