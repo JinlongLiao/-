@@ -11,3 +11,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:890/eureka/
+# 自定义
+app:
+  host: http://localhost
+  

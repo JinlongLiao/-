@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.silu.entity;
+package com.silu.web.entity;
 
 /**
  * com.silu.entity
