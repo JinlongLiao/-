@@ -13,5 +13,5 @@ eureka:
       defaultZone: http://localhost:890/eureka/
 # 自定义
 app:
-  host: http://localhost
+  host: http://127.0.0.1/
   

@@ -35,7 +35,7 @@ public class IndexController {
 		IndexEntity entity = JSONObject.parseObject(result, IndexEntity.class);
 		// 写入 Model
 		model.addAttribute("index", entity);
-		model.addAttribute("host",req.getServletContext().getAttribute("host"));
+//		model.addAttribute("host",req.getServletContext().getAttribute("host"));
 		logger.info(req.getServletContext().getAttribute("host"));
 		return "index";
 	}

@@ -11,7 +11,7 @@ function(data) {
 		var temp = data[i];
 					// console.log(temp);
 					// 获取localStorage 中的 标记
-					var port=localStorage.port;
+					var port=sessionStorage.port;
 					if (typeof(port)=='undefined') {
 						localStorage.port=2;
 						window.href=location.hostname
@@ -46,5 +46,5 @@ function(data) {
 		});
 function doPort(port){
 // 存储 localStorage 中
-localStorage.port=port;
+	sessionStorage.port=port;
 }
