@@ -1,11 +1,13 @@
 package com.silu.controller;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,12 +33,21 @@ public class NavigationController {
 	public List<Navigation> getAllNavigations() {
 		List<Navigation> navigations = null;
 		navigations = this.navigationRepository.findAll();
+		// 页面排序
+		navigations.sort(new Comparator<Navigation>() {
+
+			@Override
+			public int compare(Navigation o1, Navigation o2) {
+				// TODO Auto-generated method stub
+				return o1.getOrder() - o2.getOrder();
+			}
+		});
 		return navigations;
 	}
 
-	@RequestMapping("/doSort")
+	@RequestMapping("/sortNav/{dir}/{order}")
 	// 查询全部
-	public List<Map<Object, Object>> doSort(String dir, int order) {
+	public List<Map<Object, Object>> doSort(@PathVariable String dir, @PathVariable int order) {
 		List<Map<Object, Object>> results = new ArrayList<>();
 		HashMap<Object, Object> map = new HashMap<>();
 		try {

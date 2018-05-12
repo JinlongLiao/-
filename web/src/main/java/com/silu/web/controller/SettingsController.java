@@ -3,6 +3,8 @@ package com.silu.web.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.silu.web.entity.CommonMessage;
 import com.silu.web.entity.Navigation;
 
 /**
@@ -47,8 +51,15 @@ public class SettingsController {
 	}
 
 	@RequestMapping(value = "/sortNav")
-	public String sortNavs(@RequestParam("dir") String direction, @RequestParam("sort") int order) {
-//		System.out.println(order + "" + direction);
-		return "settings";
+	public void sortNavs(@RequestParam("dir") String direction, @RequestParam("sort") int order,
+			HttpServletResponse response) throws IOException {
+		// System.out.println(order + "" + direction);
+		String result = "";
+		// 获取远端 数据
+		String url="http://provider-user/sortNav/" + direction + "/" + order;
+		result = temp.getForObject(url, String.class);
+		// CommonMessage message = JSONObject.parseObject(result,CommonMessage.class);
+		response.setContentType("ContentType:application/json");
+		response.getWriter().write(result);
 	}
 }
