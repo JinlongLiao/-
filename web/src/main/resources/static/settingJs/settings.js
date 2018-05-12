@@ -29,3 +29,11 @@ function doSort(id, direction) {
 		});
 	}
 };
+/**
+模态框设置
+*/
+function modelShow(){
+	$('#myModal').modal({
+  keyboard: false
+})
+}
