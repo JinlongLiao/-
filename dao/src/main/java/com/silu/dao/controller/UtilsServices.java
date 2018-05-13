@@ -1,4 +1,4 @@
-package com.silu.controller;
+package com.silu.dao.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

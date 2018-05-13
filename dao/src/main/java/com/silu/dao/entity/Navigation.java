@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.silu.entity;
+package com.silu.dao.entity;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

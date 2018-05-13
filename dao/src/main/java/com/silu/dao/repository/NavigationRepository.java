@@ -1,9 +1,9 @@
-package com.silu.repository;
+package com.silu.dao.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.silu.entity.Navigation;
+import com.silu.dao.entity.Navigation;
 
 /**
  * com.silu.repository
@@ -12,4 +12,6 @@ import com.silu.entity.Navigation;
  */
 @Repository
 public interface NavigationRepository extends JpaRepository<Navigation, Long> {
+//	根据Order 获得Navigation
+	Navigation findByOrder(int order);
 }

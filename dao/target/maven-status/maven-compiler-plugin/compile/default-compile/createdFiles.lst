@@ -1,5 +1,11 @@
-com\silu\repository\UserRepository.class
 com\silu\controller\UtilsServices.class
-com\silu\ProviderUserApplication.class
-com\silu\controller\UserController.class
+com\silu\repository\NavigationRepository.class
+com\silu\entity\Navigation.class
+com\silu\controller\NavigationController.class
+com\silu\repository\UserRepository.class
+com\silu\ProviderApplication.class
+com\silu\CustomMVCConfiguration.class
+com\silu\controller\NavigationController$1.class
+com\silu\jdbcTemple\NavigationDao.class
 com\silu\entity\User.class
+com\silu\controller\UserController.class

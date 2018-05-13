@@ -7,16 +7,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.silu.web.entity.CommonMessage;
 import com.silu.web.entity.Navigation;
+import com.silu.web.feign.SettingFeignInterface;
 
 /**
  * @author 廖金龙 获取 全部导航条设置
@@ -27,6 +30,10 @@ public class SettingsController {
 	private static Logger logger = Logger.getLogger(SettingsController.class);
 	@Autowired
 	public RestTemplate temp;
+	@Value("${app.encoding}")
+	public String encoding;
+	@Autowired
+	private SettingFeignInterface settingFeign;
 
 	// 导航条
 	/**
@@ -56,10 +63,40 @@ public class SettingsController {
 		// System.out.println(order + "" + direction);
 		String result = "";
 		// 获取远端 数据
-		String url="http://provider-user/sortNav/" + direction + "/" + order;
+		String url = "http://provider-user/sortNav/" + direction + "/" + order;
 		result = temp.getForObject(url, String.class);
 		// CommonMessage message = JSONObject.parseObject(result,CommonMessage.class);
 		response.setContentType("ContentType:application/json");
 		response.getWriter().write(result);
+	}
+
+	@RequestMapping(value = "/getNavByOrder")
+	public void getNavByOrder(int order, HttpServletResponse response) {
+		Navigation navigation = temp.getForObject("http://provider-user/getNavByOrder/" + order, Navigation.class);
+		response.setContentType("ContentType:application/json");
+		response.setCharacterEncoding(encoding);
+		try {
+			response.getWriter().write(JSONObject.toJSON(navigation).toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/*
+	 * @date 2018、5、13 更新Nav
+	 */
+	@RequestMapping("/updateNavs")
+	@ResponseBody
+	public CommonMessage updateNav(Navigation navigation) {
+		int result = settingFeign.updateNav(navigation.getId(), navigation.getTitle(), navigation.getOrder(),
+				navigation.getContext(), navigation.getDesc(), navigation.getTarget(), navigation.getUrl());
+
+		CommonMessage message = new CommonMessage();
+		if (result > 0) {
+			message.setResult(true);
+			message.setMessage("SUCCESS");
+		}
+		return message;
 	}
 }

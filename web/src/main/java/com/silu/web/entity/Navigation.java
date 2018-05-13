@@ -17,6 +17,16 @@ public class Navigation {
 	private String context;
 	private String url;
 	private String desc;
+	// 20180430 新增 url target default ——NEW
+	private String target;
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
 
 	public int getId() {
 		return id;

@@ -3,7 +3,7 @@ server:
 spring:
   thymeleaf:
     cache: false
-    mode: HTML5
+    mode: LEGACYHTML5
     encoding: utf-8
   application:
     name: WEB
@@ -14,4 +14,5 @@ eureka:
 # 自定义
 app:
   host: http://127.0.0.1/
+  encoding: utf-8
   

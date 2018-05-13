@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "app.encoding",
+  "type": "java.lang.String",
+  "description": "A description for 'app.encoding'"
+}]}

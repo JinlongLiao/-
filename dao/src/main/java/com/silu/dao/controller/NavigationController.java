@@ -1,5 +1,7 @@
-package com.silu.controller;
+package com.silu.dao.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -9,11 +11,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.silu.entity.Navigation;
-import com.silu.jdbcTemple.NavigationDao;
-import com.silu.repository.NavigationRepository;
+import com.silu.dao.entity.Navigation;
+import com.silu.dao.jdbcTemple.NavigationDao;
+import com.silu.dao.repository.NavigationRepository;
 
 /**
  * com.silu.controller
@@ -64,5 +67,37 @@ public class NavigationController {
 		map.put("MESSAGE", "");
 		results.add(map);
 		return results;
+	}
+
+	@RequestMapping("/getNavByOrder/{order}")
+	public Navigation getNavByOrder(@PathVariable int order) {
+		Navigation navigation = navigationRepository.findByOrder(order);
+		return navigation;
+
+	}
+
+	/// * @RequestMapping(value =
+	/// "/updateNavs/{id}/{title}/{order}/{context}/{desc}/{target}/{url}", method =
+	/// RequestMethod.GET)
+	// public int updateNavs(Navigation navigation) {
+	// return navigationDao.updatNav(navigation);
+	//
+	// }*/
+
+	@RequestMapping(value = "/updateNavs/{id}/{title}/{order}/{context}/{desc}/{target}/{url}", method = RequestMethod.GET)
+	public int updateNavs(@PathVariable("id") int id, @PathVariable("title") String title,
+			@PathVariable("order") int order, @PathVariable("context") String context,
+			@PathVariable("desc") String desc, @PathVariable("target") String target, @PathVariable("url") String url)
+			throws UnsupportedEncodingException {
+		Navigation navigation = new Navigation();
+		navigation.setId(id);
+		navigation.setContext(URLDecoder.decode(context, "UTF-8"));
+		navigation.setOrder(order);
+		navigation.setDesc(URLDecoder.decode(desc, "UTF-8"));
+		navigation.setOrder(order);
+		navigation.setTitle(URLDecoder.decode(title, "UTF-8"));
+		navigation.setTarget(target);
+		return navigationDao.updatNav(navigation);
+
 	}
 }

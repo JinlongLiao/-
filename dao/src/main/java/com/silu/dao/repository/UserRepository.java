@@ -1,8 +1,9 @@
-package com.silu.repository;
+package com.silu.dao.repository;
 
-import com.silu.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.silu.dao.entity.User;
 
 
 

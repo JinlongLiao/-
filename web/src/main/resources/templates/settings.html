@@ -10,12 +10,15 @@
 	<base th:href="${host}" />
 	<title>基于Spring Cloud 微服务</title>
 	<link rel="stylesheet" href="/css/bootstrap2.min.css" />
-	<link rel="stylesheet" href="/css/bootstrap-theme.css" />
 	<link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css" />
+	<link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css" />
+	<link rel="stylesheet" href="/css/bootstrap-select.min.css" />
 	<script src="/js/jquery-2.1.4.min.js"></script>
 	<script src="/js/bootstrap.js"></script>
 	<script src="/js/ie-emulation-modes-warning.js"></script>
 	<script src="/js/docs.min.js"></script>
+	<script src="/js/bootstrap-select.min.js"></script>
+	<script src="/js/defaults-zh_CN.min.js"></script>
 	<script type="text/javascript" src="/commonJs/commonJs.js"></script>
 	<script type="text/javascript" src="/settingJs/settings.js"></script>
 </head>
@@ -105,7 +108,7 @@
 				<tr th:each="nav,navStat:${navis}">
 					<td scope="row" th:text="${navStat.count}">Mark</td>
 					<td th:text="${nav.order}">Otto</td>
-					<td><a href="javascript:void(0)" th:text="${nav.title}" th:onclick="'modelShow()'"></a></td>
+					<td><a href="javascript:void(0)" th:text="${nav.title}" th:onclick="'modelShow('+${nav.order}+')'"></a></td>
 					<td th:text="${nav.context}" >Otto</td>
 					<td th:text="${nav.url}">Otto</td>
 					<td th:text="${nav.desc}">Otto</td>
@@ -137,70 +140,70 @@
 		</div>
 		<div class="modal-body">
 			<form class="form-horizontal">
+				<input type="text"  id="id" style="display: none;">
+				<input type="text"  id="order" style="display: none;">
+
 				<div class="form-group has-success has-feedback">
 					<label class="control-label col-sm-3" for="inputSuccess3">标题</label>
 					<div class="col-sm-9">
-						<div class="input-group">
-							<span class="input-group-addon">@</span>
-							<input type="text" class="form-control input-lg" id="inputGroupSuccess2" aria-describedby="inputGroupSuccess2Status"/>
-						</div>
+						<!-- <span class="input-group-addon">@</span> -->
+						<input type="text" id="title" class="form-control input-lg"  placeholder="导航栏标题" aria-describedby="inputGroupSuccess2Status"/>
 						<span class="glyphicon  glyphicon-subtitles form-control-feedback " aria-hidden="true"></span> 
 						<!-- <span id="inputGroupSuccess2Status" class="sr-only">(success)</span> -->
 					</div>
 				</div>
 				<div class="form-group has-success has-feedback">
-					<label class="control-label col-sm-3" for="inputGroupSuccess2">内容</label>
+					<label class="control-label col-sm-3"  for="inputGroupSuccess2">内容</label>
 					<div class="col-sm-9">
-						<div class="input-group">
-							<span class="input-group-addon">@</span>
-							<input type="text" class="form-control input-lg" id="inputGroupSuccess2" aria-describedby="inputGroupSuccess2Status"/>
+						<!-- <div class="input-group"> -->
+							<!-- <span class="input-group-addon">@</span> -->
+							<input type="text" id="content" placeholder="导航栏内容" class="form-control input-lg" id="content" aria-describedby="inputGroupSuccess2Status"/>
+							<!-- 	</div> -->
+							<span class="glyphicon glyphicon-eye-open form-control-feedback" aria-hidden="true"></span> 
+							<span id="inputGroupSuccess2Status" class="sr-only">(success)</span>
 						</div>
-						<span class="glyphicon glyphicon-eye-open form-control-feedback" aria-hidden="true"></span> 
-						<span id="inputGroupSuccess2Status" class="sr-only">(success)</span>
 					</div>
-				</div>
-				<div class="form-group has-success has-feedback">
-					<label class="control-label col-sm-3" for="inputGroupSuccess2">链接地址</label>
-					<div class="col-sm-9">
-						<div class="input-group">
-							<span class="input-group-addon">@</span>
-							<input type="text" class="form-control input-lg" id="inputGroupSuccess2" aria-describedby="inputGroupSuccess2Status"/>
+					<div class="form-group has-success has-feedback">
+						<label class="control-label col-sm-3" for="inputGroupSuccess2">链接地址</label>
+						<div class="col-sm-9">
+							<!-- <span class="input-group-addon">@</span> -->
+							<input type="text" id="url" placeholder="导航栏URL" class="form-control input-lg" id="url" aria-describedby="inputGroupSuccess2Status"/>
+							<span class="glyphicon glyphicon-magnet form-control-feedback" aria-hidden="true"></span> 
+							<span id="inputGroupSuccess2Status" class="sr-only">(success)</span>
 						</div>
-						<span class="glyphicon glyphicon-magnet form-control-feedback" aria-hidden="true"></span> 
-						<span id="inputGroupSuccess2Status" class="sr-only">(success)</span>
-					</div>
-				</div>		
-				<div class="form-group has-success has-feedback">
-					<label class="control-label col-sm-3" for="inputGroupSuccess2">链接描述</label>
-					<div class="col-sm-9">
-						<div class="input-group">
-							<span class="input-group-addon">@</span>
-							<input type="text" class="form-control input-lg" id="inputGroupSuccess2" aria-describedby="inputGroupSuccess2Status"/>
+					</div>		
+					<div class="form-group has-success has-feedback">
+						<label class="control-label col-sm-3" for="inputGroupSuccess2">链接描述</label>
+						<div class="col-sm-9">
+							<!-- <span class="input-group-addon">@</span> -->
+							<input type="text" id="desc" class="form-control input-lg" placeholder="简单描述" id="desc" aria-describedby="inputGroupSuccess2Status"/>
+							<span class="glyphicon glyphicon-comment  form-control-feedback" aria-hidden="true"></span> 
+							<span id="inputGroupSuccess2Status" class="sr-only">(success)</span>
 						</div>
-						<span class="glyphicon glyphicon-comment  form-control-feedback" aria-hidden="true"></span> 
-						<span id="inputGroupSuccess2Status" class="sr-only">(success)</span>
 					</div>
-				</div>
-				<div class="form-group has-success has-feedback">
-					<label class="control-label col-sm-3" for="inputGroupSuccess2">打开方式</label>
-					<div class="col-sm-9">
-						<div class="input-group">
-							<span class="input-group-addon">@</span>
-							<input type="text" class="form-control input-lg" id="inputGroupSuccess2" aria-describedby="inputGroupSuccess2Status"/>
+					<div class="form-group has-success has-feedback">
+						<label class="control-label col-sm-3" for="inputGroupSuccess2">打开方式</label>
+						<div class="col-sm-9">
+							<!-- <span class="input-group-addon">@</span> -->
+							<select  style="background: #fff" class="selectpicker show-tick form-control" id="targets" title=""  data-live-search="false">
+								<option id="_blank" value="_blank">_blank</option>
+								<option id="_self" value="_self">_self</option>
+								<option id="_parent" value="_parent">_parent</option>
+								<option id="_top" value="_top">_top</option>
+							</select>
+							<span class="glyphicon glyphicon-folder-open form-control-feedback" aria-hidden="true"></span> 
+							<span id="inputGroupSuccess2Status" class="sr-only">(success)</span>
 						</div>
-						<span class="glyphicon glyphicon-folder-open form-control-feedback" aria-hidden="true"></span> 
-						<span id="inputGroupSuccess2Status" class="sr-only">(success)</span>
 					</div>
-				</div>
-			</form>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-primary btn-lg">保存</button>			
-			<button type="button" class="btn btn-default btn-lg" data-dismiss="modal">关闭</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btn-lg" onclick="doUpdateNav()">保存</button>			
+				<button type="button" class="btn btn-default btn-lg" data-dismiss="modal">关闭</button>
 
+			</div>
 		</div>
 	</div>
-</div>
 </div>
 </body>
 </html>

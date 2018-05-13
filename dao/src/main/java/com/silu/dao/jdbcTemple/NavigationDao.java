@@ -1,12 +1,13 @@
-package com.silu.jdbcTemple;
+package com.silu.dao.jdbcTemple;
 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
+
+import com.silu.dao.entity.Navigation;
 
 @Service
 public class NavigationDao {
@@ -66,4 +67,14 @@ public class NavigationDao {
 		isCount = true;
 		return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM navigation", Integer.class);
 	}
+
+	public int updatNav(Navigation navigation) {
+		int result = jdbcTemplate.update(
+				"UPDATE navigation n SET n.id = ?, n.order = ? ,n.title = ? ,n.context = ? ,n.url = ? ,n.desc = ? ,target = ?  WHERE id = ? ;",
+				new Object[] { navigation.getId(), navigation.getOrder(), navigation.getTitle(),
+						navigation.getContext(), navigation.getUrl(), navigation.getDesc(), navigation.getTarget(),
+						navigation.getId() });
+		return result;
+	}
+
 }

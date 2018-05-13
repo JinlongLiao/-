@@ -6,12 +6,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 // 扫描 自定义 监听器 Servlet
 @ServletComponentScan
 @EnableDiscoveryClient
+@EnableFeignClients
 @SpringBootApplication
 public class WebApplication {
 	private static Logger logger = Logger.getLogger(WebApplication.class);

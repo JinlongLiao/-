@@ -101,6 +101,14 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
+				</configuration>
+			</plugin>
 		</plugins>
+		<defaultGoal>compile</defaultGoal>
 	</build>
 </project>

@@ -34,3 +34,5 @@ eureka:
       defaultZone: http://localhost:890/eureka/
   instance:
     prefer-ip-address: true
+app:
+  encoding: utf-8

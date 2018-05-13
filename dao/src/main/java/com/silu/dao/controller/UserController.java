@@ -1,7 +1,8 @@
-package com.silu.controller;
+package com.silu.dao.controller;
 
-import com.silu.entity.User;
-import com.silu.repository.UserRepository;
+import com.silu.dao.entity.User;
+import com.silu.dao.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

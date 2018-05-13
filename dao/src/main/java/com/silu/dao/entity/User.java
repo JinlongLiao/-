@@ -1,4 +1,4 @@
-package com.silu.entity;
+package com.silu.dao.entity;
 
 import java.math.BigDecimal;
 
