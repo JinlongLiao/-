@@ -1,7 +1,6 @@
 package com.silu.dao.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -9,11 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.silu.dao.entity.Navigation;
 import com.silu.dao.jdbcTemple.NavigationDao;
 import com.silu.dao.repository.NavigationRepository;
@@ -30,6 +32,8 @@ public class NavigationController {
 	private NavigationRepository navigationRepository;
 	@Autowired
 	private NavigationDao navigationDao;
+	@Value("${app.encoding}")
+	public String encoding;
 
 	// 查询全部
 	@RequestMapping("/getAllNavigations")
@@ -84,20 +88,20 @@ public class NavigationController {
 	//
 	// }*/
 
-	@RequestMapping(value = "/updateNavs/{id}/{title}/{order}/{context}/{desc}/{target}/{url}", method = RequestMethod.GET)
-	public int updateNavs(@PathVariable("id") int id, @PathVariable("title") String title,
-			@PathVariable("order") int order, @PathVariable("context") String context,
-			@PathVariable("desc") String desc, @PathVariable("target") String target, @PathVariable("url") String url)
-			throws UnsupportedEncodingException {
-		Navigation navigation = new Navigation();
-		navigation.setId(id);
-		navigation.setContext(URLDecoder.decode(context, "UTF-8"));
-		navigation.setOrder(order);
-		navigation.setDesc(URLDecoder.decode(desc, "UTF-8"));
-		navigation.setOrder(order);
-		navigation.setTitle(URLDecoder.decode(title, "UTF-8"));
-		navigation.setTarget(target);
+	@RequestMapping(value = "/updateNavs", method = RequestMethod.POST)
+	public int updateNavs(@RequestParam("nav") String nav) throws UnsupportedEncodingException {
+		Gson gson = new Gson();
+		Navigation navigation = gson.fromJson(nav, Navigation.class);
 		return navigationDao.updatNav(navigation);
+		// Navigation navigation = new Navigation();
+		// navigation.setId(id);
+		// navigation.setContext(URLDecoder.decode(context, "UTF-8"));
+		// navigation.setOrder(order);
+		// navigation.setDesc(URLDecoder.decode(desc, "UTF-8"));
+		// navigation.setOrder(order);
+		// navigation.setTitle(URLDecoder.decode(title, "UTF-8"));
+		// navigation.setTarget(target);
+		// return navigationDao.updatNav(navigation);
 
 	}
 }

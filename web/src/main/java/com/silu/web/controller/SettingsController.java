@@ -89,8 +89,7 @@ public class SettingsController {
 	@RequestMapping("/updateNavs")
 	@ResponseBody
 	public CommonMessage updateNav(Navigation navigation) {
-		int result = settingFeign.updateNav(navigation.getId(), navigation.getTitle(), navigation.getOrder(),
-				navigation.getContext(), navigation.getDesc(), navigation.getTarget(), navigation.getUrl());
+		int result = settingFeign.updateNav(JSONObject.toJSON(navigation).toString());
 
 		CommonMessage message = new CommonMessage();
 		if (result > 0) {

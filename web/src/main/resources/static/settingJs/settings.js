@@ -73,7 +73,12 @@ function doUpdateNav() {
 	data.target = $('#targets').selectpicker('val');
 	$.post('/updateNavs', data, function(data, textStatus, xhr) {
 		/*optional stuff to do after success */
-		console.log(data)
+		if (data.result) {
+			alert("修改成功")
+			location.reload();
+		} else {
+			alert("修改失败" + data.message);
+		}
 
 	}, 'json');
 }
