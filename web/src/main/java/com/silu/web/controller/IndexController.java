@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.io.Writer;
 import java.net.URLDecoder;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.silu.web.entity.Main;
 import com.silu.web.index.IndexEntity.IndexEntity;
 
 @Controller
@@ -28,7 +32,7 @@ public class IndexController {
 	@Value("${app.encoding}")
 	public String encoding;
 
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/index")
 	public String toIndex(Model model, HttpServletRequest req) {
 		logger.debug("HelloWorld");
 		String result = "";
@@ -41,6 +45,21 @@ public class IndexController {
 		// model.addAttribute("host",req.getServletContext().getAttribute("host"));
 		logger.info(req.getServletContext().getAttribute("host"));
 		return "index";
+	}
+
+	@Autowired
+	DiscoveryClient discoveryClient;
+
+	// 201805 16 获取远端NODEjs 数据
+	@RequestMapping(value = "/")
+	public String toMian(Model model, HttpServletRequest req) throws JSONException {
+		// 获取远端 数据 (NOde )
+		String result = temp.postForObject("http://NODEJS-PROVIDER/main", null, String.class);
+		Gson gson = new Gson();
+
+		JSONArray jsons = new JSONArray(result);
+		model.addAttribute("json", gson.fromJson(jsons.getJSONObject(0).toString(), Main.class));
+		return "main";
 	}
 
 	@RequestMapping(value = "/settings")

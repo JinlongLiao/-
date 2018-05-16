@@ -21,16 +21,17 @@ function(data) {
 					} else if (i == 1) {
 						$('#main').html(temp.title);
 						$('#main').attr('href', temp.url);
-						$('#main').attr('target', temp.url);
-						// console.log(temp.title);
+						$('#main').attr('target', temp.target);
+						$('#main').attr('title', temp.desc);
+//						 console.log(temp);
 
 					} else if (i == port) {
 						tempHtml = tempHtml + '<li class="active" onclick=doPort('+i+')><a href="'
-						+ temp.url + '" target="' + temp.target + '">'
+						+ temp.url + '" target="' + temp.target + '" title="'+temp.desc+'">'
 						+ temp.title + '</a></li>';
 					} else {
-						tempHtml = tempHtml + '<li onclick=doPort('+i+')><a href="' + temp.url
-						+ '" target="' + temp.target + '">'
+						tempHtml = tempHtml + '<li onclick=doPort('+i+')><a  href="' + temp.url
+						+ '" target="' + temp.target+ '" title="'+temp.desc+'">'
 						+ temp.title + '</a></li>';
 					}
 				}

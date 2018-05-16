@@ -28,3 +28,6 @@ hs_err_pid*
 /web/target/
 /ExpressT.7z
 /Servers/
+/EurkaJs/.idea/
+/EurkaJs/node_modules/
+/EurkaJs/EurkaJs.iml

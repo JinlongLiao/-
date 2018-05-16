@@ -1,16 +1,15 @@
 package com.silu.dao;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+import org.junit.Test;
+
 public class DaoApplicationTests {
 
-    @Test
-    public void contextLoads() {
-    }
+	@Test
+	public void contextLoads() throws UnsupportedEncodingException {
+		System.out.println(URLDecoder.decode("	%E5%AF%BC%E8%88%AA%E6%A0%8F", "utf-8"));
+	}
 
 }

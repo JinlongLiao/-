@@ -92,6 +92,8 @@ public class NavigationController {
 	public int updateNavs(@RequestParam("nav") String nav) throws UnsupportedEncodingException {
 		Gson gson = new Gson();
 		Navigation navigation = gson.fromJson(nav, Navigation.class);
+		System.out.println("传输过来" + nav);
+		// Navigation navigation = JSONObject.parseObject(nav, Navigation.class);
 		return navigationDao.updatNav(navigation);
 		// Navigation navigation = new Navigation();
 		// navigation.setId(id);
