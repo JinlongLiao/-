@@ -79,37 +79,43 @@
     </div>
     <div class="panel-body">
 
-        <form class="form-horizontal">
+        <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+            <input type="text" value="<%= id %>" style="display: none" name="id">
             <div class="form-group form-group-lg">
                 <label class="col-sm-2 control-label" for="1">标题名称</label>
                 <div class="col-sm-10">
-                    <input class="form-control" type="text" id="1" placeholder="Large input" value="<%= m_title %>">
+                    <input class="form-control" type="text" id="1" name="mtitle" placeholder="Large input" value="<%= m_title %>">
                 </div>
             </div>
             <div class="form-group form-group-lg">
                 <label class="col-sm-2 control-label" for="2">按钮名称</label>
                 <div class="col-sm-10">
-                    <input class="form-control" type="text" id="2" placeholder="Large input" value="<%= m_bt_title %>">
+                    <input class="form-control" type="text" name="mbttitle" id="2" placeholder="Large input" value="<%= m_bt_title %>">
                 </div>
             </div>
             <div class="form-group form-group-lg">
                 <label class="col-sm-2 control-label" for="3">按钮描述</label>
                 <div class="col-sm-10">
-                    <input class="form-control" type="text" id="3" placeholder="Large input" value="<%= m_bt_desc %>">
+                    <input class="form-control" type="text" id="3" name="mbtdesc" placeholder="Large input" value="<%= m_bt_desc %>">
                 </div>
             </div>
-
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label" for="0">按钮链接地址</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="0" name="mbturl" placeholder="Large input" value="<%= m_bt_url%>">
+                </div>
+            </div>
             <div class="form-group form-group-lg">
                 <label class="col-sm-2 control-label" for="3">描述</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" rows="3"><%= m_content %></textarea>
+                    <textarea class="form-control" rows="3" name="mbtcontent"><%= m_content %></textarea>
                 </div>
             </div>
             <div class="form-group form-group-lg">
                 <label class="col-sm-2 control-label" for="4">背景图片</label>
                 <div class="col-sm-10 input-group">
                     <span class="input-group-addon"><a href="<%= m_bg_img%>" target="_blank"> 查看图片</a></span>
-                    <input id="input-b2" name="input-b2" type="file" class="file" data-show-preview="false">
+                    <input id="input-b2"  type="file" name="mbgimg" class="file" data-show-preview="false">
                 </div>
             </div>
             <div class="form-group form-group-lg">

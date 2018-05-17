@@ -3,6 +3,7 @@ package com.silu.web.controller;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URLDecoder;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,7 +60,14 @@ public class IndexController {
 		Gson gson = new Gson();
 
 		JSONArray jsons = new JSONArray(result);
-		model.addAttribute("json", gson.fromJson(jsons.getJSONObject(0).toString(), Main.class));
+		Main main = gson.fromJson(jsons.getJSONObject(0).toString(), Main.class);
+		List<ServiceInstance> serviceInstances = discoveryClient.getInstances("NODEJS-PROVIDER");
+		for (ServiceInstance serviceInstance : serviceInstances) {
+			main.setM_bg_img(
+					"http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/" + main.getM_bg_img());
+			;
+		}
+		model.addAttribute("json", main);
 		return "main";
 	}
 

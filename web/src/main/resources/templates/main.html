@@ -47,8 +47,11 @@
 	</header>
 	<div class="container-fluid">
 		<div class="bs-example" data-example-id="simple-jumbotron">
-			<div class="jumbotron" style="background-image: url(./img/main.jpg)">
-				<h1 th:text="${json?.m_title}">Hello, world!</h1>
+			<p id='temppic' th:text="${json.m_bg_img}" style="display: none;"></p>
+			<!-- 			<div class="jumbotron" style="background-image: url(./img/main.jpg)">
+ -->
+			<div class="jumbotron" id="pic">
+				<h1 th:text="${json?.m_title}" style="color: #2e41b8">Hello, world!</h1>
 				<p th:text="${json?.m_content}" style="color: #2e41b4">This is a
 					simple hero unit, a simple jumbotron-style component for calling
 					extra attention to featured content or information.</p>
@@ -63,3 +66,13 @@
 	</div>
 </body>
 </html>
+<script>
+	var url = $("#temppic").html();
+	if (url != "") {
+		$("#pic").css('background-image', 'url('+url+')');
+		//document.getElementById("pic").style.backgroundImage='url('+url+')';
+		console.log( 'url('+url+')');
+	} else {
+		$("#pics").css('background-image', 'url(./img/main.jpg)');
+	}
+</script>
