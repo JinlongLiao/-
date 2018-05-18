@@ -68,11 +68,11 @@
 </html>
 <script>
 	var url = $("#temppic").html();
-	if (url != "") {
+	if (url !=='') {
 		$("#pic").css('background-image', 'url('+url+')');
 		//document.getElementById("pic").style.backgroundImage='url('+url+')';
 		console.log( 'url('+url+')');
 	} else {
-		$("#pics").css('background-image', 'url(./img/main.jpg)');
+		$("#pic").css('background-image', 'url(./img/main.jpg)');
 	}
 </script>

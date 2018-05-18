@@ -23,7 +23,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.silu.web.entity.Main;
+import com.silu.web.entity.Navigation;
 import com.silu.web.index.IndexEntity.IndexEntity;
 
 @Controller
@@ -31,9 +33,19 @@ public class IndexController {
 	private static Logger logger = Logger.getLogger(IndexController.class);
 	@Autowired
 	public RestTemplate temp;
+	// 从配置文件获取相应的 配置信息
 	@Value("${app.encoding}")
 	public String encoding;
+	@Value("${app.sorry}")
+	public String sorry;
+	@Value("${app.sorryDesc}")
+	public String sorryDesc;
+	@Value("${app.sorryTitle}")
+	public String sorryTitle;
+	@Value("${app.sorryUrl}")
+	public String sorryUrl;
 
+	// 微服务 页面导向与 获取远端 信息
 	@RequestMapping(value = "/index")
 	public String toIndex(Model model, HttpServletRequest req) {
 		logger.debug("HelloWorld");
@@ -49,10 +61,13 @@ public class IndexController {
 		return "index";
 	}
 
+	// Java Eureka Client 封装完成的 客户端 获取远端 的注册 中心所有 注册微服务的信息
 	@Autowired
 	DiscoveryClient discoveryClient;
 
-	// 201805 16 获取远端NODEjs 数据
+	// 2018/5/18 漏电保护器
+	@HystrixCommand(fallbackMethod = "toMianError")
+	// 201805 16 获取远端NODEjs 数据 首页的 巨幕信息
 	@RequestMapping(value = "/")
 	public String toMian(Model model, HttpServletRequest req) throws JSONException {
 		// 获取远端 数据 (NOde )
@@ -71,6 +86,22 @@ public class IndexController {
 		return "main";
 	}
 
+	// 首页 获取信息 出错时 的方法
+	public String toMianError(Model model, HttpServletRequest req) throws JSONException {
+
+		Main main = new Main();
+		main.setM_bt_desc(sorryDesc);
+		main.setM_bt_title(sorryTitle);
+		main.setM_bt_url(sorryUrl);
+		main.setM_title(sorryTitle);
+		main.setM_content(sorryDesc);
+		model.addAttribute("json", main);
+		return "main";
+	}
+
+	// 2018/5/18 添加 断路 保护
+	@HystrixCommand(fallbackMethod = "toSettingsError")
+	// Java 关于 导航栏所有信息
 	@RequestMapping(value = "/settings")
 	public String toSettings(Model model) {
 		logger.debug("HelloWorld");
@@ -83,6 +114,19 @@ public class IndexController {
 		return "settings";
 	}
 
+	// 获取 远端 信息失败时候 回调方法
+	public String toSettingsError(Model model) {
+		logger.debug("HelloWorld");
+		// // 获取远端 数据
+		// result = temp.getForObject("http://provider-user/index/view", String.class);
+		// // 转换 为Java 对象
+		// IndexEntity entity = JSONObject.parseObject(result, IndexEntity.class);
+		// // 写入 Model
+		// model.addAttribute("index", entity);
+		return "settings";
+	}
+
+	// 导向 微服务介绍 页面
 	@RequestMapping(value = "/infoService")
 	public String toinfoService(Model model) {
 		logger.debug("HelloWorld");
@@ -95,6 +139,7 @@ public class IndexController {
 		return "infoService";
 	}
 
+	// 总结页面导向
 	@RequestMapping(value = "/last")
 	public String toLast(Model model) {
 		logger.debug("HelloWorld");
@@ -108,9 +153,11 @@ public class IndexController {
 		return "last";
 	}
 
-	// 导航条
+	// 2018/5/18 漏电保护器
+	// 获取导航条信息 在前端页面来基本显示
 	@RequestMapping(value = "/navigation")
 	@ResponseBody
+	@HystrixCommand(fallbackMethod = "navigationError")
 	public void navigation(HttpServletResponse res) throws IOException {
 		logger.debug("HelloWorld");
 		String result = "";
@@ -125,4 +172,61 @@ public class IndexController {
 		w.close();
 
 	}
+
+	public void navigationError(HttpServletResponse res) throws Exception {
+		logger.debug("HelloWorld");
+		Navigation navigation1 = new Navigation();
+		navigation1.setId(0);
+		navigation1.setContext(sorry);
+		navigation1.setDesc(sorryDesc);
+		navigation1.setOrder(0);
+		navigation1.setTarget("#");
+		navigation1.setTitle(sorryTitle);
+		navigation1.setUrl(sorryUrl);
+		Navigation navigation2 = new Navigation();
+		navigation2.setId(0);
+		navigation2.setContext(sorry);
+		navigation2.setDesc(sorryDesc);
+		navigation2.setOrder(0);
+		navigation2.setTarget("#");
+		navigation2.setTitle(sorryTitle);
+		navigation2.setUrl(sorryUrl);
+		Navigation navigation3 = new Navigation();
+		navigation3.setId(0);
+		navigation3.setContext(sorry);
+		navigation3.setDesc(sorryDesc);
+		navigation3.setOrder(0);
+		navigation3.setTarget("#");
+		navigation3.setTitle(sorryTitle);
+		navigation3.setUrl(sorryUrl);
+		Navigation navigation4 = new Navigation();
+		navigation4.setId(0);
+		navigation4.setContext(sorry);
+		navigation4.setDesc(sorryDesc);
+		navigation4.setOrder(0);
+		navigation4.setTarget("#");
+		navigation4.setTitle(sorryTitle);
+		navigation4.setUrl(sorryUrl);
+
+		// 转换 JsonArray
+		com.alibaba.fastjson.JSONArray jsonArray = new com.alibaba.fastjson.JSONArray();
+		jsonArray.add(navigation1);
+		jsonArray.add(navigation2);
+		jsonArray.add(navigation3);
+		jsonArray.add(navigation4);
+		String result = jsonArray.toString();
+		// 写出去
+		// System.out.println(result);
+		logger.debug(result);
+		res.setCharacterEncoding("utf-8");
+		res.setContentType("application/json");
+		Writer w = res.getWriter();
+		w.write(URLDecoder.decode(result, encoding));
+		w.close();
+
+	}
+
+	// public static void main(String[] args) throws IOException {
+	// new IndexController().navigationError();
+	// }
 }

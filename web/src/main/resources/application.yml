@@ -11,8 +11,10 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:890/eureka/
-# 自定义
 app:
   host: http://127.0.0.1/
   encoding: utf-8
-  
+  sorry: 我们的后台出问题了
+  sorryDesc: 我们的后台出问题了就是那种要杀程序员祭天的问题
+  sorryTitle: 杀程序员祭天了
+  sorryUrl: ./
