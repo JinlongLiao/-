@@ -3,7 +3,7 @@
 <head>
 
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <title>UMEDITOR 完整demo</title>
+    <title>微服务PHP端</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="third-party/jquery.min.js"></script>
@@ -11,10 +11,11 @@
     <script type="text/javascript" charset="utf-8" src="umeditor.min.js"></script>
     <script type="text/javascript" src="lang/zh-cn/zh-cn.js"></script>
     <style type="text/css">
-        h1{
+        h1 {
             font-family: "微软雅黑";
             font-weight: normal;
         }
+
         .btn {
             display: inline-block;
             *display: inline;
@@ -111,35 +112,38 @@
     </style>
 </head>
 <body>
-<h1>UMEDITOR 完整demo</h1>
-
+<h1>微服务PHP端 </h1>
+来个标题呗
+<input type="text" id="title"><br><br><br>
 <!--style给定宽度可以影响编辑器的最终宽度-->
-<script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
-    <p>这里我可以写一些输入提示</p>
-</script>
+<DIV id="con">
 
+    <textarea type="text/plain" id="myEditor" style="width:1000px;height:240px;">
+	</textarea>
+
+</DIV>
 
 <div class="clear"></div>
 <div id="btns">
     <table>
         <tr>
             <td>
-                <button class="btn" unselected="on" onclick="getAllHtml()">获得整个html的内容</button>&nbsp;
-                <button class="btn" onclick="getContent()">获得内容</button>&nbsp;
+                <!--<button class="btn" unselected="on" onclick="getAllHtml()">获得整个html的内容</button>&nbsp;-->
+                <!--<button class="btn" onclick="getContent()">获得内容</button>&nbsp;-->
                 <button class="btn" onclick="setContent()">写入内容</button>&nbsp;
                 <button class="btn" onclick="setContent(true)">追加内容</button>&nbsp;
-                <button class="btn" onclick="getContentTxt()">获得纯文本</button>&nbsp;
-                <button class="btn" onclick="getPlainTxt()">获得带格式的纯文本</button>&nbsp;
-                <button class="btn" onclick="hasContent()">判断是否有内容</button>
+                <!--<button class="btn" onclick="getContentTxt()">获得纯文本</button>&nbsp;-->
+                <!--<button class="btn" onclick="getPlainTxt()">获得带格式的纯文本</button>&nbsp;-->
+                <!--<button class="btn" onclick="hasContent()">判断是否有内容</button>-->
             </td>
         </tr>
         <tr>
             <td>
-                <button class="btn" onclick="setFocus()">编辑器获得焦点</button>&nbsp;
-                <button class="btn" onmousedown="isFocus();return false;">编辑器是否获得焦点</button>&nbsp;
-                <button class="btn" onclick="doBlur()">编辑器取消焦点</button>&nbsp;
-                <button class="btn" onclick="insertHtml()">插入给定的内容</button>&nbsp;
-                <button class="btn" onclick="getContentTxt()">获得纯文本</button>&nbsp;
+                <!--<button class="btn" onclick="setFocus()">编辑器获得焦点</button>&nbsp;-->
+                <!--<button class="btn" onmousedown="isFocus();return false;">编辑器是否获得焦点</button>&nbsp;-->
+                <!--<button class="btn" onclick="doBlur()">编辑器取消焦点</button>&nbsp;-->
+                <!--<button class="btn" onclick="insertHtml()">插入给定的内容</button>&nbsp;-->
+                <!--<button class="btn" onclick="getContentTxt()">获得纯文本</button>&nbsp;-->
                 <button class="btn" id="enable" onclick="setEnabled()">可以编辑</button>&nbsp;
                 <button class="btn" onclick="setDisabled()">不可编辑</button>
             </td>
@@ -148,52 +152,63 @@
             <td>
                 <button class="btn" onclick="UM.getEditor('myEditor').setHide()">隐藏编辑器</button>&nbsp;
                 <button class="btn" onclick="UM.getEditor('myEditor').setShow()">显示编辑器</button>&nbsp;
-                <button class="btn" onclick="UM.getEditor('myEditor').setHeight(300)">设置编辑器的高度为300</button>&nbsp;
-                <button class="btn" onclick="UM.getEditor('myEditor').setWidth(1200)">设置编辑器的宽度为1200</button>
+                <!--<button class="btn" onclick="UM.getEditor('myEditor').setHeight(300)">设置编辑器的高度为300</button>&nbsp;-->
+                <!--<button class="btn" onclick="UM.getEditor('myEditor').setWidth(1200)">设置编辑器的宽度为1200</button>-->
             </td>
         </tr>
 
     </table>
 </div>
-<table>
-    <tr>
-        <td>
-            <button class="btn" onclick="createEditor()"/>创建编辑器</button>
-            <button class="btn" onclick="deleteEditor()"/>删除编辑器</button>
-        </td>
-    </tr>
-</table>
+<!--<table>-->
+<!--<tr>-->
+<!--<td>-->
+<!--<button class="btn" onclick="createEditor()"/>-->
+<!--创建编辑器</button>-->
+<!--<button class="btn" onclick="deleteEditor()"/>-->
+<!--删除编辑器</button>-->
+<!--</td>-->
+<!--</tr>-->
+<!--</table>-->
 
 <div>
-    <h3 id="focush2"></h3>
+    <h3 id="focush2" STYLE="display: none"></h3>
 </div>
 <script type="text/javascript">
+    var content = '<p><strong><span style="font-family: &#39;Microsoft JhengHei UI&#39;;color: rgb(255, 0, 0);letter-spacing: 0;font-size: 29pxfont-family:Microsoft JhengHei UI">老婆漂亮的程序员，鄙视老婆不漂亮的程序员。</span></strong><strong><span style="font-family: &#39;Microsoft JhengHei UI&#39;;color: rgb(255, 0, 0);letter-spacing: 0;font-size: 29px"><br/></span></strong><strong><span style="font-family: &#39;Microsoft JhengHei UI&#39;;color: rgb(255, 0, 0);letter-spacing: 0;font-size: 29pxfont-family:Microsoft JhengHei UI">有老婆的程序员，鄙视没有老婆的程序员。</span></strong><strong><span style="font-family: &#39;Microsoft JhengHei UI&#39;;color: rgb(255, 0, 0);letter-spacing: 0;font-size: 29px"><br/></span></strong><strong><span style="font-family: &#39;Microsoft JhengHei UI&#39;;color: rgb(255, 0, 0);letter-spacing: 0;font-size: 29pxfont-family:Microsoft JhengHei UI">没有老婆有女朋友的程序员，鄙视单身程序狗。</span></strong><strong><span style="font-family: &#39;Microsoft JhengHei UI&#39;;color: rgb(255, 0, 0);letter-spacing: 0;font-size: 29px"><br/></span></strong><strong><span style="font-family: &#39;Microsoft JhengHei UI&#39;;color: rgb(255, 0, 0);letter-spacing: 0;font-size: 29pxfont-family:Microsoft JhengHei UI">在单身狗之间，才有语言、编辑器和操作系统的互相鄙视。</span></strong></p><p> <br/></p>';
     //实例化编辑器
     var um = UM.getEditor('myEditor');
-    um.addListener('blur',function(){
+    um.setContent(content, true);
+    um.addListener('blur', function () {
         $('#focush2').html('编辑器失去焦点了')
     });
-    um.addListener('focus',function(){
+    um.addListener('focus', function () {
         $('#focush2').html('')
     });
+
     //按钮的操作
     function insertHtml() {
         var value = prompt('插入html代码', '');
         um.execCommand('insertHtml', value)
     }
-    function isFocus(){
+
+    function isFocus() {
         alert(um.isFocus())
     }
-    function doBlur(){
+
+    function doBlur() {
         um.blur()
     }
+
     function createEditor() {
         enableBtn();
         um = UM.getEditor('myEditor');
     }
+
     function getAllHtml() {
-        alert(UM.getEditor('myEditor').getAllHtml())
+        //	alert(UM.getEditor('myEditor').getAllHtml())
+        return UM.getEditor('myEditor').getAllHtml();
     }
+
     function getContent() {
         var arr = [];
         arr.push("使用editor.getContent()方法可以获得编辑器的内容");
@@ -201,6 +216,7 @@
         arr.push(UM.getEditor('myEditor').getContent());
         alert(arr.join("\n"));
     }
+
     function getPlainTxt() {
         var arr = [];
         arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
@@ -208,12 +224,44 @@
         arr.push(UM.getEditor('myEditor').getPlainTxt());
         alert(arr.join('\n'))
     }
+
     function setContent(isAppendTo) {
         var arr = [];
         arr.push("使用editor.setContent('欢迎使用umeditor')方法可以设置编辑器的内容");
-        UM.getEditor('myEditor').setContent('欢迎使用umeditor', isAppendTo);
-        alert(arr.join("\n"));
+
+        // alert(arr.join("\n"));
+        var contents = getAllHtml();
+        var title = $('#title').val();
+        console.log(getAllHtml());
+        if (title === null || (title).length == 0) {
+            alert("大佬给个标题呗→_→");
+            return;
+        }
+        jQuery.ajax({
+            url: '/utf8-php/php/setContent.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {'content': contents, 'title': title},
+            complete: function (xhr, textStatus) {
+                //called when complete
+            },
+            success: function (data, textStatus, xhr) {
+                //called when successful
+                if (data.RESULT) {
+                    alert("上传成功！d=====(￣▽￣*)b ")
+                    location.reload();
+                }
+                ;
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                //called when there is an error
+                console.log(errorThrown)
+            }
+        });
+
+        UM.getEditor('myEditor').setContent(content, isAppendTo);
     }
+
     function setDisabled() {
         UM.getEditor('myEditor').setDisabled('fullscreen');
         disableBtn("enable");
@@ -239,20 +287,25 @@
         arr.push(UM.getEditor('myEditor').getContentTxt());
         alert(arr.join("\n"));
     }
+
     function hasContent() {
         var arr = [];
         arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
         arr.push("判断结果为：");
         arr.push(UM.getEditor('myEditor').hasContents());
         alert(arr.join("\n"));
+        return UM.getEditor('myEditor').hasContents();
     }
+
     function setFocus() {
         UM.getEditor('myEditor').focus();
     }
+
     function deleteEditor() {
         disableBtn();
         UM.getEditor('myEditor').destroy();
     }
+
     function disableBtn(str) {
         var div = document.getElementById('btns');
         var btns = domUtils.getElementsByTagName(div, "button");
@@ -264,6 +317,7 @@
             }
         }
     }
+
     function enableBtn() {
         var div = document.getElementById('btns');
         var btns = domUtils.getElementsByTagName(div, "button");
