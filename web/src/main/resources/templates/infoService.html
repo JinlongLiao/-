@@ -16,6 +16,10 @@
 <script src="/js/bootstrap.js"></script>
 <script src="/js/ie-emulation-modes-warning.js"></script>
 <script type="text/javascript" src="/commonJs/commonJs.js"></script>
+<script type="text/javascript" src="/infoServiceJs/infoService.js"></script>
+<script type="text/javascript" src="/commonJs/commonJs.js"></script>
+
+
 </head>
 
 <body>
@@ -82,6 +86,29 @@
 				class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 				<span class="sr-only">Next</span>
 			</a>
+		</div>
+		<div class="bs-example" data-example-id="table-within-panel">
+			<div class="panel panel-primary">
+				<!-- Default panel contents -->
+				<div class="panel-heading">PHP 端 文章列表</div>
+				<div class="panel-body">
+					<!-- Table -->
+					<table class="table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>文章名称</th>
+								<th>添加时间</th>
+								<th>修订时间</th>
+							</tr>
+						</thead>
+						<tbody id='coantainer'>
+						</tbody>
+					</table>
+				</div>
+
+
+			</div>
 		</div>
 
 	</div>

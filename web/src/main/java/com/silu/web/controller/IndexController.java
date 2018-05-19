@@ -139,6 +139,23 @@ public class IndexController {
 		return "infoService";
 	}
 
+	// 导向 微服务介绍 页面
+	@RequestMapping(value = "/getInfoService")
+	public void infoService(HttpServletResponse res) throws IOException {
+		logger.debug("HelloWorld");
+		// // 获取远端 数据
+		// result = temp.getForObject("http://provider-user/index/view", String.class);
+		// // 转换 为Java 对象
+		// IndexEntity entity = JSONObject.parseObject(result, IndexEntity.class);
+		// // 写入 Model
+		// model.addAttribute("index", entity);
+		String result = temp.getForObject("http://PHP-DATA-PROVIDER/utf8-php/php/getContent.php", String.class);
+		res.setCharacterEncoding(encoding);
+		res.setContentType("application/json");
+		// System.out.println(result);
+		res.getWriter().write(result);
+	}
+
 	// 总结页面导向
 	@RequestMapping(value = "/last")
 	public String toLast(Model model) {
@@ -226,6 +243,25 @@ public class IndexController {
 
 	}
 
+	@RequestMapping("/getInfoPhpContent")
+	public void getPhpContentInfo(HttpServletResponse res, String id) throws IOException {
+		String result = temp.getForObject("http://PHP-DATA-PROVIDER/utf8-php/php/getContent.php?client=java&id=" + id,
+				String.class);
+		res.setCharacterEncoding(encoding);
+		res.setContentType("text/html");
+		if (result == null) {
+			result = "<script>alert('小朋友不乖哦(≧∇≦)ﾉ(≧∇≦)ﾉ(≧∇≦)ﾉ(≧∇≦)ﾉ(≧∇≦)ﾉ(≧∇≦)ﾉ(≧∇≦)ﾉ 根本没有这条记录●﹏● ●﹏● ●﹏● ●﹏●');</script>";
+		}
+		// System.out.println("adsfdfsa" + new
+		// String(org.bouncycastle.util.encoders.Base64.decode(result)));
+		try {
+			result = new String(org.bouncycastle.util.encoders.Base64.decode(result));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		// 解码后 输出
+		res.getWriter().write(result);
+	}
 	// public static void main(String[] args) throws IOException {
 	// new IndexController().navigationError();
 	// }

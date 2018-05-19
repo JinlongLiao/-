@@ -73,7 +73,8 @@ public class SettingsController {
 	@RequestMapping(value = "/getNavByOrder")
 	public void getNavByOrder(int order, HttpServletResponse response) {
 		Navigation navigation = temp.getForObject("http://provider-user/getNavByOrder/" + order, Navigation.class);
-		response.setContentType("ContentType:application/json");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/json");
 		response.setCharacterEncoding(encoding);
 		try {
 			response.getWriter().write(JSONObject.toJSON(navigation).toString());
