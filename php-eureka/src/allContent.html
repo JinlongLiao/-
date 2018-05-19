@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浏览文章</title>
+    <script src="utf8-php/third-party/jquery.min.js"></script>
+</head>
+<body>
+<div style="width: 100%">
+    <ul id="container">
+    </ul>
+</div>
+
+</body>
+</html>
+<script>
+    $(function () {
+        jQuery.ajax({
+            url: '/utf8-php/php/getContent.php',
+            type: 'POST',
+            dataType: 'json',
+            complete: function (xhr, textStatus) {
+                //called when complete
+            },
+            success: function (data, textStatus, xhr) {
+                //called when successful
+                var content = '';
+                for (key in data) {
+                    var tmp = data[key];
+                    // statement
+                    content += ('<li><a href="./utf8-php/php/getContent.php?id=' + tmp.id + '" target="_blank">' + tmp.title + '</a> &nbsp;&nbsp; <a>更新时间：' + tmp.updateTime + '</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="doEdit('+tmp.id+')">编辑</button></li>');
+                }
+                $('#container').html(content);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                //called when there is an error
+            }
+        });
+
+    });
+
+    function doEdit(id) {
+        location.href = "./utf8-php/php/editContent.php?id=" + id;
+    }
+</script>
