@@ -27,6 +27,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.silu.web.entity.Main;
 import com.silu.web.entity.Navigation;
 import com.silu.web.index.IndexEntity.IndexEntity;
+import com.silu.web.util.ConfigYaml;
 
 @Controller
 public class IndexController {
@@ -44,6 +45,26 @@ public class IndexController {
 	public String sorryTitle;
 	@Value("${app.sorryUrl}")
 	public String sorryUrl;
+	// 微服务地址
+	// @Value("${app.php.url}")
+	// public String phpUrl;
+	// @Value("${app.java.url}")
+	// public String javaUrl;
+	// @Value("${app.nodeJs.url}")
+	// public String nodeJsUrl;
+	// @Value("${app.php.Nme}")
+	// public String phpNme;
+	// @Value("${app.java.Nme}")
+	// public String javaNme;
+	// @Value("${app.nodeJs.Nme}")
+	// public String nodeJsNme;
+	// 抛弃原有Spring提供 使用自定义
+	public String phpUrl = ConfigYaml.getPHP_URL();
+	public String javaUrl = ConfigYaml.getJAVA_URL();
+	public String nodeJsUrl = ConfigYaml.getNODEJS_URL();
+	public String phpNme = ConfigYaml.getPHP_NAME();
+	public String javaNme = ConfigYaml.getJAVA_NAME();
+	public String nodeJsNme = ConfigYaml.getNODEJS_NAME();
 
 	// 微服务 页面导向与 获取远端 信息
 	@RequestMapping(value = "/index")
@@ -51,7 +72,7 @@ public class IndexController {
 		logger.debug("HelloWorld");
 		String result = "";
 		// 获取远端 数据
-		result = temp.getForObject("http://provider-user/index/view", String.class);
+		result = temp.getForObject(javaUrl + "/index/view", String.class);
 		// 转换 为Java 对象
 		IndexEntity entity = JSONObject.parseObject(result, IndexEntity.class);
 		// 写入 Model
@@ -71,12 +92,12 @@ public class IndexController {
 	@RequestMapping(value = "/")
 	public String toMian(Model model, HttpServletRequest req) throws JSONException {
 		// 获取远端 数据 (NOde )
-		String result = temp.postForObject("http://NODEJS-PROVIDER/main", null, String.class);
+		String result = temp.postForObject(nodeJsUrl + "/main", null, String.class);
 		Gson gson = new Gson();
 
 		JSONArray jsons = new JSONArray(result);
 		Main main = gson.fromJson(jsons.getJSONObject(0).toString(), Main.class);
-		List<ServiceInstance> serviceInstances = discoveryClient.getInstances("NODEJS-PROVIDER");
+		List<ServiceInstance> serviceInstances = discoveryClient.getInstances(nodeJsNme);
 		for (ServiceInstance serviceInstance : serviceInstances) {
 			main.setM_bg_img(
 					"http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/" + main.getM_bg_img());
@@ -149,7 +170,7 @@ public class IndexController {
 		// IndexEntity entity = JSONObject.parseObject(result, IndexEntity.class);
 		// // 写入 Model
 		// model.addAttribute("index", entity);
-		String result = temp.getForObject("http://PHP-DATA-PROVIDER/utf8-php/php/getContent.php", String.class);
+		String result = temp.getForObject(phpUrl + "/utf8-php/php/getContent.php", String.class);
 		res.setCharacterEncoding(encoding);
 		res.setContentType("application/json");
 		// System.out.println(result);
@@ -179,7 +200,7 @@ public class IndexController {
 		logger.debug("HelloWorld");
 		String result = "";
 		// 获取远端 数据
-		result = temp.getForObject("http://provider-user/getAllNavigations", String.class);
+		result = temp.getForObject(javaUrl + "/getAllNavigations", String.class);
 		// 写出去
 		logger.debug(result);
 		res.setCharacterEncoding("utf-8");
@@ -245,8 +266,7 @@ public class IndexController {
 
 	@RequestMapping("/getInfoPhpContent")
 	public void getPhpContentInfo(HttpServletResponse res, String id) throws IOException {
-		String result = temp.getForObject("http://PHP-DATA-PROVIDER/utf8-php/php/getContent.php?client=java&id=" + id,
-				String.class);
+		String result = temp.getForObject(phpUrl + "/utf8-php/php/getContent.php?client=java&id=" + id, String.class);
 		res.setCharacterEncoding(encoding);
 		res.setContentType("text/html");
 		if (result == null) {
