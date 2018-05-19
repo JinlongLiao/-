@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-05-14 19:34:13
+Date: 2018-05-19 17:39:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,14 +31,33 @@ CREATE TABLE `navigation` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of navigation
+-- Table structure for tb_content
 -- ----------------------------
-INSERT INTO `navigation` VALUES ('0', '0', '导航栏 ', '导航栏', '#', '导航栏不能修改', '');
-INSERT INTO `navigation` VALUES ('1', '3', '微服务 ', '微服务', 'http://127.0.0', '微服务', '_self');
-INSERT INTO `navigation` VALUES ('2', '2', '首页', '', 'http://127.0.0.1', '', '_self');
-INSERT INTO `navigation` VALUES ('3', '4', '微服务介绍', '', 'http://127.0.0.1/infoService', '微服务介绍', '_self');
-INSERT INTO `navigation` VALUES ('4', '5', '总结', '总结', 'http://127.0.0.1/last', null, '_self');
-INSERT INTO `navigation` VALUES ('5', '6', '页面设置', '设置', 'http://127.0.0.1/GetAllNavs', '页面设置', '_self');
+DROP TABLE IF EXISTS `tb_content`;
+CREATE TABLE `tb_content` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '文章标题',
+  `content` longtext,
+  `html` longtext NOT NULL COMMENT 'html 内容',
+  `addTime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
+  `updateTime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_main
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_main`;
+CREATE TABLE `tb_main` (
+  `id` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `m_title` varchar(255) DEFAULT NULL COMMENT '巨幕标题',
+  `m_content` varchar(255) DEFAULT NULL COMMENT '巨幕内容',
+  `m_bg_img` varchar(255) DEFAULT NULL COMMENT '巨幕bg',
+  `m_bt_title` varchar(255) DEFAULT NULL COMMENT '按钮名称',
+  `m_bt_url` varchar(255) DEFAULT '' COMMENT '按钮地址',
+  `m_bt_desc` varchar(255) DEFAULT '' COMMENT '按钮描述',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for user
@@ -52,10 +71,3 @@ CREATE TABLE `user` (
   `balance` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('1', 'account1', '张三', '20', '100.00');
-INSERT INTO `user` VALUES ('2', 'account2', '李四', '28', '180.00');
-INSERT INTO `user` VALUES ('3', 'account3', '王五', '32', '280.00');
