@@ -275,7 +275,7 @@ public class IndexController {
 		// System.out.println("adsfdfsa" + new
 		// String(org.bouncycastle.util.encoders.Base64.decode(result)));
 		try {
-			result = new String(org.bouncycastle.util.encoders.Base64.decode(result));
+			result = new String(org.bouncycastle.util.encoders.Base64.decode(result),encoding);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

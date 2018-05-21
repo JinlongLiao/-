@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.silu.web.entity.CommonMessage;
 import com.silu.web.entity.Navigation;
 import com.silu.web.feign.SettingFeignInterface;
+import com.silu.web.util.ConfigYaml;
 
 /**
  * @author 廖金龙 获取 全部导航条设置
@@ -46,7 +47,7 @@ public class SettingsController {
 		logger.debug("HelloWorld");
 		String result = "";
 		// 获取远端 数据
-		result = temp.getForObject("http://provider-user/getAllNavigations", String.class);
+		result = temp.getForObject(ConfigYaml.getJAVA_URL()+"/getAllNavigations", String.class);
 		// 写出去
 		List<Navigation> navis = JSONArray.parseArray(result, Navigation.class);
 		if (navis != null)
@@ -63,7 +64,7 @@ public class SettingsController {
 		// System.out.println(order + "" + direction);
 		String result = "";
 		// 获取远端 数据
-		String url = "http://provider-user/sortNav/" + direction + "/" + order;
+		String url = ConfigYaml.getJAVA_URL()+"/sortNav/" + direction + "/" + order;
 		result = temp.getForObject(url, String.class);
 		// CommonMessage message = JSONObject.parseObject(result,CommonMessage.class);
 		response.setContentType("ContentType:application/json");
@@ -72,7 +73,7 @@ public class SettingsController {
 
 	@RequestMapping(value = "/getNavByOrder")
 	public void getNavByOrder(int order, HttpServletResponse response) {
-		Navigation navigation = temp.getForObject("http://provider-user/getNavByOrder/" + order, Navigation.class);
+		Navigation navigation = temp.getForObject(ConfigYaml.getJAVA_URL()+"/getNavByOrder/" + order, Navigation.class);
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json");
 		response.setCharacterEncoding(encoding);

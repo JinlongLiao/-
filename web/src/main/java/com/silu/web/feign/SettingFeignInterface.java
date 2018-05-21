@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "PROVIDER-USER")
+@FeignClient(name = "JAVA-PROVIDER")
 public interface SettingFeignInterface {
 	// @RequestMapping(value =
 	// "/updateNavs/{id}/{title}/{order}/{context}/{desc}/{target}/{url}", method =

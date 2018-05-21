@@ -1,8 +1,7 @@
 package com.silu.web.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.Map;
 
@@ -18,9 +17,18 @@ public class ConfigYaml {
 	private static ConfigYaml configYaml = new ConfigYaml();
 	static {
 		try {
+			// if (is != null) {
+			// System.out.println(
+			// ConfigYaml.class.getResource("../../../../config.yml").getPath());
+			// System.out.println("OK");
+			// System.exit(0);
+			// }
+			// InputStreamReader isr = new
+			// InputStreamReader(ConfigYaml.class.getResourceAsStream("../../../../config.yml"));
 			appUtil = new Yaml().loadAs(
-					new FileInputStream(new File(ConfigYaml.class.getResource("../../../../config.yml").getPath())),
+					new InputStreamReader(ConfigYaml.class.getResourceAsStream("../../../../config.yml")),
 					AppUtil.class);
+			// is.close();
 			Class<ConfigYaml> temp = ConfigYaml.class;
 			// configYaml = (ConfigYaml) temp.newInstance();
 			Field[] fields = temp.getDeclaredFields();
@@ -51,9 +59,6 @@ public class ConfigYaml {
 				}
 			}
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,9 +75,9 @@ public class ConfigYaml {
 
 	public ConfigYaml(String path) throws Exception {
 		// TODO Auto-generated constructor stub
-		appUtil = new Yaml().loadAs(
-				new FileInputStream(new File(ConfigYaml.class.getResource("../../../../config.yml").getPath())),
-				AppUtil.class);
+		InputStream is = ConfigYaml.class.getClassLoader().getResourceAsStream(path);
+		appUtil = new Yaml().loadAs(is, AppUtil.class);
+		is.close();
 		Class<ConfigYaml> temp = ConfigYaml.class;
 		// configYaml = (ConfigYaml) temp.newInstance();
 		Field[] fields = temp.getDeclaredFields();
@@ -160,5 +165,4 @@ public class ConfigYaml {
 	public static void setNODEJS_NAME(String nODEJS_NAME) {
 		NODEJS_NAME = nODEJS_NAME;
 	}
-
 }
