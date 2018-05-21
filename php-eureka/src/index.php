@@ -1,8 +1,8 @@
 <h1>It Work</h1>
 <ul>
-    <li><a href="./doRegister.php" target=""> 去注册一下</a></li>
-    <li><a href="./utf8-php" target=" "> 添加文章</a></li>
-    <li><a href="./allContent.html" target=" "> 浏览文章</a></li>
+    <li><a href="./doRegister.php" target="_blank"> 去注册一下</a></li>
+    <li><a href="./utf8-php" target="_blank "> 添加文章</a></li>
+    <li><a href="./allContent.html" target="_blank "> 浏览文章</a></li>
 </ul>
 <?php
 require_once './vendor/autoload.php';

@@ -5,11 +5,11 @@
     <title>编辑文章</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link href="../themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="../third-party/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../umeditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../umeditor.min.js"></script>
-    <script type="text/javascript" src="../lang/zh-cn/zh-cn.js"></script>
+    <link href="http://127.0.0.1:81/utf8-php/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="http://127.0.0.1:81/utf8-php/third-party/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="http://127.0.0.1:81/utf8-php/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="http://127.0.0.1:81/utf8-php/umeditor.min.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:81/utf8-php/lang/zh-cn/zh-cn.js"></script>
 
     <?php
     header('Content-Type:text/html;charset=UTF-8');
