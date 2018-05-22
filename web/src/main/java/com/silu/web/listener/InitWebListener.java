@@ -16,8 +16,8 @@ import org.springframework.beans.factory.annotation.Value;
  */
 @WebListener("初始化 相关 配置在 application")
 public class InitWebListener implements ServletContextListener {
-	@Value("${app.host}")
-	private String host;
+	@Value("${app.path}")
+	private String path;
 	private static Logger logger = Logger.getLogger(InitWebListener.class);
 
 	/*
@@ -29,9 +29,9 @@ public class InitWebListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		// TODO Auto-generated method stubS
-		logger.info("App is Start ...... application host =》" + host);
+		logger.info("App is Start ...... application path =》" + path);
 
-		sce.getServletContext().setAttribute("host", host);
+		sce.getServletContext().setAttribute("path", path);
 	}
 
 	/*

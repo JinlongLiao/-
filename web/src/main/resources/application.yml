@@ -12,7 +12,8 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:890/eureka/
 app:
-  host: http://127.0.0.1/
+  host: http://127.0.0.1
+  path: ${app.host}:${server.port}/
   encoding: utf-8
   sorry: 我们的后台出问题了
   sorryDesc: 我们的后台出问题了就是那种要杀程序员祭天的问题

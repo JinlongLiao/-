@@ -1,0 +1,11 @@
+server:
+  port: 880
+spring:
+  application:
+    name: GATEWAY-ZUUL
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:890/eureka/
+  instance:
+    prefer-ip-address: true

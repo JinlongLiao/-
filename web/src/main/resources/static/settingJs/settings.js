@@ -2,11 +2,11 @@ $(function() {
 
 });
 
-function doSort(id, direction) {
+function doSort(id, direction,url) {
 	var result = confirm("是否确定调正 顺序");
 	if (result) {
 		$.ajax({
-			url: '/sortNav',
+			url: url+'/sortNav',
 			type: 'GET',
 			dataType: 'json',
 			data: {
@@ -62,7 +62,7 @@ function modelShow(orders) {
 		});
 }
 // 修改 nav 信息
-function doUpdateNav() {
+function doUpdateNav(urls) {
 	var data = {};
 	data.id = $("#id").val();
 	data.order = $("#order").val();
@@ -71,7 +71,8 @@ function doUpdateNav() {
 	data.url = $("#url").val();
 	data.desc = $("#desc").val();
 	data.target = $('#targets').selectpicker('val');
-	$.post('/updateNavs', data, function(data, textStatus, xhr) {
+	alert(urls);
+	$.post(urls+'/updateNavs', data, function(data, textStatus, xhr) {
 		/*optional stuff to do after success */
 		if (data.result) {
 			alert("修改成功")
