@@ -36,3 +36,4 @@ hs_err_pid*
 /php-eureka/.idea/
 /php-eureka/php-eureka.iml
 /php-eureka/composer.lock
+/EurkaJs/public/UserImg/*.jpg
