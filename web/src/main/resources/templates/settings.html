@@ -109,14 +109,14 @@
 					<td th:text="${nav.order}">Otto</td>
 					<td><a href="javascript:void(0)" th:text="${nav.title}" th:onclick="'modelShow('+${nav.order}+')'"></a></td>
 					<td th:text="${nav.context}" >Otto</td>
-					<td th:text="${nav.url}">Otto</td>
+					<td th:text="${nav.url}" th:attr="id='url_id_'+${navStat.count}">Otto</td>
 					<td th:text="${nav.desc}">Otto</td>
 					<td><span class="glyphicon glyphicon glyphicon-arrow-up"
 						aria-hidden="true"
-						th:onclick="'javascript:doSort('+${nav.order}+',1,'+${application.path}+')'"></span></td>
+						th:onclick="'doSort('+${nav.order}+',1,'+${navStat.count}+')'"></span></td>
 						<td><span class="glyphicon glyphicon glyphicon-arrow-down"
 							aria-hidden="true"
-							th:onclick="'javascript:doSort('+${nav.order}+',-1,'+${application.path}+')'"></span></td>
+							th:onclick="'doSort('+${nav.order}+',-1,'+${navStat.count}+')'"></span></td>
 						</tr>
 					</tbody>
 				</table>

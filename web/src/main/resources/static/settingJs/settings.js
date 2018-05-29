@@ -4,9 +4,11 @@ $(function() {
 
 function doSort(id, direction,url) {
 	var result = confirm("是否确定调正 顺序");
+	url=getRoot();
+//	alert(url)
 	if (result) {
 		$.ajax({
-			url: url+'/sortNav',
+			url: '/sortNav',
 			type: 'GET',
 			dataType: 'json',
 			data: {
