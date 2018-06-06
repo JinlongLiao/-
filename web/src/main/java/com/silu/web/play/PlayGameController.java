@@ -43,7 +43,7 @@ public class PlayGameController {
 
 		if (titles.equals("mvdemo.gif")) {
 			try {
-				is = PlayGameController.class.getClassLoader().getResourceAsStream("./static/plaies/mv.gif");
+				is = PlayGameController.class.getResourceAsStream("../../../../static/plaies/mv.gif");
 				bi = ImageIO.read(is);
 				int srcImgWidth = bi.getWidth(null);// 获取图片的宽
 				int srcImgHeight = bi.getHeight(null);// 获取图片的高
@@ -82,7 +82,7 @@ public class PlayGameController {
 
 		} else if (titles.equals("jhdemo.gif")) {
 			try {
-				is = PlayGameController.class.getClassLoader().getResourceAsStream("./static/plaies/jh.gif");
+				is = PlayGameController.class.getResourceAsStream("../../../../static/plaies/jh.gif");
 				bi = ImageIO.read(is);
 				int srcImgWidth = bi.getWidth(null);// 获取图片的宽
 				int srcImgHeight = bi.getHeight(null);// 获取图片的高
@@ -92,7 +92,6 @@ public class PlayGameController {
 				g.drawImage(bi, 0, 0, srcImgWidth, srcImgHeight, null);
 				g.setColor(Color.black); // 根据图片的背景设置水印颜色
 				g.setFont(new Font("", Font.ITALIC, 15)); // 设置字体
-
 
 				// 设置水印的坐标
 				g.drawString(no1.substring(0, no1.length() > 10 ? 10 : no1.length()), 380, 125); // 画出水印
@@ -120,7 +119,7 @@ public class PlayGameController {
 			}
 		} else if (titles.equals("zmdemo.gif")) {
 			try {
-				is = PlayGameController.class.getClassLoader().getResourceAsStream("./static/plaies/zm.gif");
+				is = PlayGameController.class.getResourceAsStream("../../../../static/plaies/zm.gif");
 				bi = ImageIO.read(is);
 				int srcImgWidth = bi.getWidth(null);// 获取图片的宽
 				int srcImgHeight = bi.getHeight(null);// 获取图片的高
@@ -159,7 +158,7 @@ public class PlayGameController {
 
 		} else if (titles.equals("jhdemo.gif")) {
 			try {
-				is = PlayGameController.class.getClassLoader().getResourceAsStream("./static/plaies/" + titles);
+				is = PlayGameController.class.getResourceAsStream("../../../../static/plaies/" + titles);
 				bi = ImageIO.read(is);
 				Graphics2D g = bi.createGraphics();
 				g.drawImage(bi, 0, 0, 300, 400, null);
@@ -177,7 +176,7 @@ public class PlayGameController {
 
 		} else {
 			try {
-				is = PlayGameController.class.getClassLoader().getResourceAsStream("./static/plaies/");
+				is = PlayGameController.class.getResourceAsStream("../../../../static/plaies/");
 				bi = ImageIO.read(is);
 				Graphics2D g = bi.createGraphics();
 				g.drawImage(bi, 0, 0, 300, 400, null);
